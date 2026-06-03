@@ -7,6 +7,11 @@ The engine introduces a **two-tier inventory validation gate** combined with liv
 
 <img width="930" height="337" alt="image" src="https://github.com/user-attachments/assets/d49f7db7-f921-4ccc-b885-df2a73d692eb" />
 
+<img width="785" height="197" alt="image" src="https://github.com/user-attachments/assets/4b1a5ea2-30d2-497e-b1b1-7a4fe86097f1" />
+
+<img width="706" height="48" alt="image" src="https://github.com/user-attachments/assets/e857ec57-b8c9-477a-8f43-545acee6b896" />
+
+
 
 ---
 
@@ -36,6 +41,10 @@ The system features an automated, live-updating SPC chart tracking production we
   * **$Cp$ (Process Potential):** Measures the absolute width of the process variation against customer specification limits ($\frac{USL - LSL}{6\sigma}$).
   * **$Cpk$ (Process Capability Index):** Adjusts for process centering ($\min(\frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma})$).
 * **Dynamic Engineering Recommendations:** An algorithmic decision matrix evaluates joint $Cp$/$Cpk$ thresholds to spit out live, context-aware operational playbooks (e.g., identifying whether an issue requires a mechanical DOE for screw wear vs. a simple haul-off speed calibration adjustment).
+* <img width="711" height="169" alt="image" src="https://github.com/user-attachments/assets/efefad0d-2c8d-425a-8f1a-c1bada5c17eb" />
+<img width="466" height="130" alt="image" src="https://github.com/user-attachments/assets/e1cc4246-45ff-44c7-9cc3-12399f4933bd" />
+
+
 
 ---
 

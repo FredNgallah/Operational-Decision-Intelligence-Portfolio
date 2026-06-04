@@ -46,6 +46,8 @@ The system features an automated, live-updating SPC chart tracking production we
 * **Dynamic Engineering Recommendations:** An algorithmic decision matrix evaluates joint $Cp$/$Cpk$ thresholds to spit out live, context-aware operational playbooks (e.g., identifying whether an issue requires a mechanical DOE for screw wear vs. a simple haul-off speed calibration adjustment).
 * <img width="711" height="169" alt="image" src="https://github.com/user-attachments/assets/efefad0d-2c8d-425a-8f1a-c1bada5c17eb" />
 <img width="466" height="130" alt="image" src="https://github.com/user-attachments/assets/e1cc4246-45ff-44c7-9cc3-12399f4933bd" />
+<img width="550" height="82" alt="image" src="https://github.com/user-attachments/assets/f11e6a64-8610-456d-baaf-10207789d8ea" />
+
 
 
 

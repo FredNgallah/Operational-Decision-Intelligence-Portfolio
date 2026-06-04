@@ -5,6 +5,9 @@ In continuous plastic extrusion and manufacturing, untracked raw material varian
 
 The engine introduces a **two-tier inventory validation gate** combined with live **Statistical Process Control (SPC)**. It shifts the facility from lagging weekly retrospective reporting to active, real-time variance detection, protecting intellectual property and isolating hidden process losses within a 24-hour window.
 
+<img width="299" height="153" alt="image" src="https://github.com/user-attachments/assets/b1a2d605-a38d-45a6-9587-a7b5c5fd0a2f" />
+
+
 <img width="930" height="337" alt="image" src="https://github.com/user-attachments/assets/d49f7db7-f921-4ccc-b885-df2a73d692eb" />
 
 <img width="785" height="197" alt="image" src="https://github.com/user-attachments/assets/4b1a5ea2-30d2-497e-b1b1-7a4fe86097f1" />

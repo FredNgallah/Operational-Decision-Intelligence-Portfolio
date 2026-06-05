@@ -1,60 +1,92 @@
 # Real-Time Statistical Process Control (SPC) & Closed-Loop Material Loss Engine
 
-## 📌 Executive Summary
-In continuous plastic extrusion and manufacturing, untracked raw material variance and delayed quality feedback directly erode gross margins. This project delivers an enterprise-grade Decision Intelligence system deployed for a major PVC manufacturing plant. 
+### Executive Summary
+In continuous plastic extrusion and manufacturing, untracked raw material variance and delayed quality feedback directly erode gross margins. This project delivers an enterprise-grade Decision Intelligence system deployed for a major PVC manufacturing plant in Kenya.
 
 The engine introduces a **two-tier inventory validation gate** combined with live **Statistical Process Control (SPC)**. It shifts the facility from lagging weekly retrospective reporting to active, real-time variance detection, protecting intellectual property and isolating hidden process losses within a 24-hour window.
 
-<img width="299" height="153" alt="image" src="https://github.com/user-attachments/assets/b1a2d605-a38d-45a6-9587-a7b5c5fd0a2f" />
+---
 
+## 1. Problem Statement
+Most manufacturing operations do not have a data problem—they have a latency problem. At this PVC extrusion facility, material loss was tracked only via lagging weekly percentage averages, which were narrow, retrospective, and raised alarms only after significant waste had already accumulated.
 
-<img width="930" height="337" alt="image" src="https://github.com/user-attachments/assets/d49f7db7-f921-4ccc-b885-df2a73d692eb" />
+The business pain was threefold:
+* **Invisible Giveaway:** Operators running machines heavy to stay within spec rather than on target.
+* **Cross-Department Blame:** Production, Finance, and Quality each holding different numbers with no single source of truth.
+* **Margin Erosion:** Engineering over-weight giveaway silently compounding into tens of thousands of dollars per year. The Quality team bore the brunt of the blame without the data tools to defend or improve their position.
 
-<img width="785" height="197" alt="image" src="https://github.com/user-attachments/assets/4b1a5ea2-30d2-497e-b1b1-7a4fe86097f1" />
-
-<img width="706" height="48" alt="image" src="https://github.com/user-attachments/assets/e857ec57-b8c9-477a-8f43-545acee6b896" />
-
-
+We deployed a real-time Closed-Loop Material Loss & SPC Engine with two-tier reconciliation—a **Store Gate** (weekly macro-inventory) and a **Floor Gate** (daily micro-consumption)—and an early-warning evaluation of the first 10 production samples per run to catch process spikes before they generate significant scrap.
 
 ---
 
-## 🛠️ System Architecture & The Two-Tier Gate
+## 2. Solution Overview
 
-The architecture isolates material tracking at two critical physical choke points to eliminate "invisible scrap" and unrecorded floor waste:
+### Architecture & System Data Flow
+PLC/SCADA and manual floor logs feed the stream processor, which drives the SPC Engine, Reconciliation Engine, and Data Warehouse. Outputs surface on role-gated dashboards for floor, quality, and executive audiences.
 
-1. **The Store Gate (Weekly Macro-Reconciliation):** Tracks bulk raw material movements from main inventory to the production floor bins, establishing the baseline mass-balance ledger.
-2. **The Floor Gate (Daily Micro-Reconciliation):** Captures exact supervisor-logged machine inputs ($Consumption$) against automated output calculations ($Good\ Production + Tracked\ Floor\ Scrap$). 
-
-### Core Mathematical Framework for Floor Variance:
-* **Total Process Output (kgs):** $\text{Daily Inline Material} + \text{Daily Floor Scrap}$
-* **Floor Material Variance (kgs):** $\text{Material Consumption per day} - \text{Total Process Output}$
-* **% Floor Variance:** $\frac{\text{Floor Material Variance}}{\text{Material Consumption per day}}$
-
-By separating machine-proven output from physical consumption, the system identifies process discrepancies (e.g., moisture loss, bulk feed calibration issues, or unlogged purges) in under 24 hours.
-
----
-
-## 📈 Advanced Analytics & SPC Engine
-
-The system features an automated, live-updating SPC chart tracking production weight stability across active shifts.
-
-### Key Capabilities:
-* **Early-Warning Spike Detection:** Uses an optimized lookback array evaluating the first 10 production samples of a run to flag immediate process shocks before they generate thousands of kilograms of non-conforming product.
-* **Automated Process Capability ($Cp$ & $Cpk$):** Leverages non-collapsing multi-input array mapping (`MAP` + `LAMBDA` optimization) to automatically calculate process capability without manual dragging:
-  * **$Cp$ (Process Potential):** Measures the absolute width of the process variation against customer specification limits ($\frac{USL - LSL}{6\sigma}$).
-  * **$Cpk$ (Process Capability Index):** Adjusts for process centering ($\min(\frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma})$).
-* **Dynamic Engineering Recommendations:** An algorithmic decision matrix evaluates joint $Cp$/$Cpk$ thresholds to spit out live, context-aware operational playbooks (e.g., identifying whether an issue requires a mechanical DOE for screw wear vs. a simple haul-off speed calibration adjustment).
-* <img width="711" height="169" alt="image" src="https://github.com/user-attachments/assets/efefad0d-2c8d-425a-8f1a-c1bada5c17eb" />
-<img width="466" height="130" alt="image" src="https://github.com/user-attachments/assets/e1cc4246-45ff-44c7-9cc3-12399f4933bd" />
-<img width="550" height="82" alt="image" src="https://github.com/user-attachments/assets/f11e6a64-8610-456d-baaf-10207789d8ea" />
-
-
-
+### Component Map
+| Component | Purpose | Inputs | Outputs | Stack | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Data Ingest** | Collect raw production, scrap, and store-issue data | PLC/SCADA signals, manual floor logs, ERP store gate issues | Normalized event records | Kafka / Airflow, Python | Target ingest latency < 5 min per batch |
+| **Stream Processing** | Validate, deduplicate, and route events | Raw ingest events | Clean records to warehouse | Apache Kafka, dbt | Handles late-arriving manual entries |
+| **SPC Engine** | Compute X-bar, Moving Range, UCL/LCL | 10-piece subgroup sample weights per product line | SPC events, control limit alerts | Python (NumPy/Pandas) | Recalculates limits dynamically per settings sheet |
+| **Early-Warning Lookback** | Flag process spikes on the first 10 samples of a run | First subgroup per shift/run | Early-warning flag | Python | Prevents thousands of kg of scrap before shift completes |
+| **Reconciliation Engine** | Store Gate vs. Floor Gate analysis | Weekly store issues (kg), daily floor consumption (kg), inline mass, floor scrap | Process loss %, variance window | Python, SQL (Postgres) | Two-tier: macro weekly + micro daily |
+| **Process Capabilities** | Calculate Cp, Cpk per product line | SPC data, LSL/USL settings | Capability status, recommendations | Python (SciPy) | Flags "INCAPABLE" lines for immediate DOE action |
+| **Dashboard & Alerts** | Surface KPIs and tables | Live charts, daily variance tables, alerts | Role-gated dashboard environments | Grafana / Power BI / Dash | Role-gated; no download/formula access for exec view |
+| **Data Warehouse** | Single source of truth for all data | All pipeline outputs | Queryable analytical tables | PostgreSQL | 90-day hot retention; 2-year cold storage |
+| **Access Controls** | Enforce role-based permissions | User roles (floor, quality, exec, finance) | Scoped views, stripped export rights | Postgres RLS, dashboard RBAC | Protects IP and prevents formula duplication |
 
 ---
 
-## 💼 Business Impact & Corporate Value
-* **Finance-Approved Visibility:** Delivers real-time data streaming and auditable operational numbers directly to executive and finance leads, replacing vulnerable monthly physical inventory surprises.
-* **Scrap Reduction:** Early spike indicators mitigate long-run extrusion defects, directly saving raw material input costs.
-* **Zero-Maintenance Scale:** Engineered completely with dynamic array formulas; the system scales infinitely down the page as operators input logs without risking formula corruption or broken references.
-* **Enterprise Security Perimeter:** Implements rigid role-based access controls and customized scope permissions, completely blocking client-side downloading, copying, or printing to protect core operational IP.
+## 3. Key Concepts & Data Model
+
+### Core Terminology
+* **Subgrouping (10-piece):** Every 10 consecutive pieces from a product line form one subgroup. This cadence is the foundation of valid X-bar SPC charting, enables early-shift spike detection, and gives floor supervisors an actionable signal without waiting for end-of-shift summaries.
+* **Store Gate:** The weekly macro-reconciliation layer. Physical bulk raw material (kg) issued from the store to the floor is logged weekly and forms the upper boundary of material accountability.
+* **Floor Gate:** The daily micro-reconciliation layer. Machine supervisor consumption (kg) is matched against calculated total output—inline good mass plus tracked floor scrap—to isolate process loss within a 24-hour window.
+* **Inline Good Mass:** The total calculated mass of conforming product produced in a shift, derived from `piece count × target BOM weight per unit`.
+* **Floor Scrap:** Physically weighed and logged scrap material (trims, purges, rejects) collected on the production floor each shift.
+* **Engineering Giveaway:** The mass produced above the BOM target weight—product given to customers for free due to machine over-weight setting. Classified as an unbilled profit loss.
+* **Unaccounted Process Loss:** The residual variance after all tracked categories (BOM mass, regrind/scrap, giveaway) are subtracted from total material input. Attributable to dust, fluff, moisture, and purge losses.
+
+---
+
+## 4. Operational Playbooks & Alerts
+
+### Automated Alert Rules
+| Trigger Condition | Alert | Audience | Priority |
+| :--- | :--- | :--- | :--- |
+| First subgroup X-bar > UCL or < LCL | Early-Warning Spike | Floor Supervisor, Quality Lead | **Critical** |
+| Any subgroup mean outside control limits | UCL/LCL Breach (mid-run) | Quality Lead | **Critical** |
+| `daily_floor_material_variance_kg` > 500 kg or `pct_floor_mat_variance` > 5% | Daily Variance Threshold | Production Manager, Finance | **High** |
+| Cpk < 1.0 | Process Capabilities tab flags "INCAPABLE" | Quality Lead, Engineering | **High** |
+| % process loss > 2% on Weekly Material Logs | Weekly Process Loss | Plant Manager, Finance | **Medium** |
+
+### On-Call Playbook (For Floor Supervisors)
+1. **Pause** the current run at the next natural break point if an Early-Warning or UCL/LCL breach occurs.
+2. **Check** machine die/tooling temperature and screw speed settings against the Settings sheet targets.
+3. **Recalibrate** to the target weight center line—not just within specification limits.
+4. **Log** the intervention in the `floor_scrap` table with an operational note.
+5. **Restart** and confirm the next subgroup mean falls within UCL/LCL before resuming full production.
+
+---
+
+## 5. Security, Access Control & IP
+We enforce a strict role-based access control (RBAC) model across all data surfaces to protect proprietary logic:
+* **Floor Operators:** Read-only access to their product line's current SPC chart and shift sample entry forms. No access to financial data or control limit settings.
+* **Quality Leads:** Full read access to all SPC data, Process Capabilities, and alert history. Write access to floor scrap logs and operational notes.
+* **Finance & Executive:** Secure, view-only dashboard access to daily variance, weekly process loss, and executive summary KPIs. Zero access to underlying formulas, schemas, or raw data exports.
+
+All dashboard instances have download and duplication permissions disabled for non-admin roles to protect core system IP, including control limit derivation logic and the capability index decision matrix.
+
+---
+
+## 6. License & Attribution
+This project is released under the **MIT License**.
+
+Built and deployed in partnership with the plant operations and quality team at a major PVC manufacturing facility in Kenya. Special recognition to the Plant Quality Lead and the production floor team for rapid collaboration, immediate floor execution, and trust in data-driven process management.
+
+### System Maintainers
+* **Fred** | Data Engineer | pipeline & systems architecture
+* **Jotham** | Plant Quality Lead | SPC chart validation & floor implementation

@@ -1,0 +1,6 @@
+date,shift,product_line,material_used,unique_shift_key,sample_1,sample_2,sample_3,sample_4,sample_5,sample_6,sample_7,sample_8,sample_9,sample_10,row_average,row_sample_count,row_total_mass
+2026-05-28,2,Gutter,Virgin,28/5/2/V Gutter-1,24.95,24.95,24.75,24.4,24.85,24.65,24.2,24.2,24.1,24.2,4.937,10,246.85
+2026-05-28,2,Gutter,Virgin,28/5/2/V Gutter-2,24.4,24.3,24.55,24.45,24.3,24.3,24.2,24.45,24.2,24.3,4.868,10,243.4
+2026-05-28,2,140mm Casings,Virgin,28/5/2/V 140mm Casings-1,14.5,14.4,14.6,14.6,14.5,14.5,14.55,14.5,14.5,14.4,14.47,10,144.7
+2026-05-28,2,140mm Casings,Virgin,28/5/2/V 140mm Casings-2,14.45,14.4,14.45,14.6,14.35,14.3,14.65,14.6,14.6,14.6,14.46,10,144.6
+2026-05-29,1,140mm Casings,Virgin,29/5/1/V 140mm Casings-1,14.6,14.4,14.45,14.6,14.6,14.6,14.3,14.5,14.4,14.5,14.42,10,144.2

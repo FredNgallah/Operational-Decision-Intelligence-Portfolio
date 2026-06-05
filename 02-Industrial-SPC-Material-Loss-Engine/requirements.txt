@@ -1,0 +1,11 @@
+numpy
+pandas
+scipy
+psycopg2-binary
+dash
+apache-kafka
+dbt-core
+dbt-postgres
+pytest
+black
+ruff

@@ -138,7 +138,7 @@ The workbook is organized into four dedicated operational control layers:
 * **Capability Matrix:** A automated per-product $C_p$ and $C_{pk}$ capability table that mathematically scores how reliably a machine line can hold its structural targets without drifting.
 * **Process Sigma Scores:** Dynamically evaluates current machine capability status (e.g., *Capable, Marginally Capable, Action Required*).
 * **Auto-Generated Operational Recommendations:** Translates statistical variances into plain-English directives for the engineering team (e.g., *"Initiate die-centering calibration on Line 3"* or *"Review raw material blend consistency"*).
-* ![Executive Summary Dashboard](C:\SPC Project Files/Dashboard.png)
+* ![Executive Summary Dashboard]("C:\SPC Project Files\Dashboard.png")
 
 ## 7. Operational Playbooks & Alerts
 

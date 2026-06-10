@@ -6,7 +6,7 @@
 2. [Solution Overview](#2-solution-overview)
 3. [System Deployment & Implementation](#3-System-Deployment--Implementation)
 4. [Key Concepts & Data Model](#4-key-concepts--data-model)
-5. [SPC & Early-Warning Logic](#5-spc--early-warning-logic)
+5. [Statistical Process Control (SPC) & Early-Warning Logic](#5-Statistical-Process-Control-(SPC)--Early-Warning-Logic)
 6. [Dashboards & Visualizations](#6-dashboards--visualizations)
 7. [Operational Playbooks & Alerts](#7-operational-playbooks--alerts)
 8. [Testing, Validation & Metrics](#8-testing-validation--metrics)
@@ -103,6 +103,10 @@ To eliminate tracking noise and isolate true structural process variation, the s
 ### 🛑 Proactive Early-Warning Lookback
 
 The highest financial leverage of this engine comes from its predictive capability at the absolute start of an extrusion run, bypassing the standard operational lag that plagues traditional plants.
+
+* **Instantaneous Validation:** At the initialization of any product run, the engine evaluates the very first 10 samples (the first complete subgroup) and instantly scores the mean against established control boundaries.
+* **Pre-Emptive Deficit Prevention:** If the initial subgroup mean breaches the UCL or LCL, the dashboard immediately triggers a critical validation flag. 
+* **The Business Impact:** This alert empowers the floor supervisor to halt operations and recalibrate the extruder barrel *before* the run generates significant over-weight giveaway or under-weight structural scrap. By correcting the process drift at piece 10 instead of piece 10,000, **the system actively prevents thousands of kilograms of material waste per shift.**
 
 ## 6. Operational Playbooks & Alerts
 

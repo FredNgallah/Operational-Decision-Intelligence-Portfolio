@@ -142,25 +142,100 @@ The workbook is organized into four dedicated operational control layers:
 
 ## 7. Operational Playbooks & Alerts
 
+A premium data architecture is only as effective as the operational discipline it enforces. To ensure real-time insights translate directly into margin protection, the system establishes mandatory, step-by-step action playbooks for floor personnel and quality managers.
+
 ### Automated Alert Rules
 | Trigger Condition | Alert | Audience | Priority |
 | :--- | :--- | :--- | :--- |
-| First subgroup X-bar > UCL or < LCL | Early-Warning Spike | Floor Supervisor, Quality Lead | **🔴 Critical** |
-| Any subgroup mean outside control limits | UCL/LCL Breach (mid-run) | Quality Lead | **Critical** |
-| `daily_floor_material_variance_kg` > 500 kg or `pct_floor_mat_variance` > 5% | Daily Variance Threshold | Production Manager, Finance | **High** |
-| Cpk < 1.0 | Process Capabilities tab flags "INCAPABLE" | Quality Lead, Engineering | **High** |
-| % process loss > 2% on Weekly Material Logs | Weekly Process Loss | Plant Manager, Finance | **Medium** |
+| First subgroup X-bar > UCL or < LCL | Early-Warning Spike | Floor Supervisor, Quality Lead | **🔴Critical** |
+| Any subgroup mean outside control limits | UCL/LCL Breach (mid-run) | Quality Lead | **🔴Critical** |
+| `daily_floor_material_variance_kg` > 500 kg or `pct_floor_mat_variance` > 5% | Daily Variance Threshold | Production Manager, Finance | **🟠High** |
+| Cpk < 1.0 | Process Capabilities tab flags "INCAPABLE" | Quality Lead, Engineering | **🟠High** |
+| % process loss > 2% on Weekly Material Logs | Weekly Process Loss | Plant Manager, Finance | **🟡Medium** |
 
-### On-Call Playbook (For Floor Supervisors)
+### 🚨 On-Call Playbook (For Floor Supervisors)
 1. **Pause** the current run at the next natural break point if an Early-Warning or UCL/LCL breach occurs.
 2. **Check** machine die/tooling temperature and screw speed settings against the Settings sheet targets.
 3. **Recalibrate** to the target weight center line—not just within specification limits.
 4. **Log** the intervention in the `floor_scrap` table with an operational note.
 5. **Restart** and confirm the next subgroup mean falls within UCL/LCL before resuming full production.
 
+### 🚨 On-Call Playbook (Quality Leads)
+
+When the automated engine **flags** a process deviation—such as a critical capability breach ($C_{pk} < 1.0$) or an X-bar control limit violation—the team executes the following mandatory containment protocol:
+
+1. **Isolate & Audit:** Immediately pull the *Process Capabilities* report on the centralized dashboard for the flagged product line.
+2. **Execute First-Line Diagnostics:** Review the system's auto-generated operational recommendation (e.g., *"Initiate mechanical Design of Experiments (DOE). Inspect screw wear profile, audit barrel temperature cycling zones, or verify raw material blend consistency"*).
+3. **Engineering Escalation:** If the system-generated diagnostic requires a mechanical inspection or a complex adjustment, immediately escalate the ticket to the plant engineering department.
+4. **Institutional Logging:** Document the exact root cause, timestamps, and mechanical interventions directly into the centralized **SPC Event Log** sheet to build a historical maintenance baseline.
+
 ---
 
-## 8. Security, Access Control & IP
+### 📋 Shift Handover Checklist (SPC Event Active)
+
+To completely eliminate operational blind spots during shift changeovers—a major source of material waste in traditional manufacturing—supervisors must complete this rigorous data verification before signing off:
+
+* [ ] **Active Event Verification:** Confirm that the active SPC event type and affected product line are fully logged in the **SPC Event Log** tab.
+* [ ] **Statistical Baseline Note:** Document the exact X-bar deviation value, active UCL/LCL boundaries, and the precise subgroup number where the initial breach was captured.
+* [ ] **Intervention Logging:** Record every physical machine adjustment made during the shift with an exact timestamp.
+* [ ] **Financial Threshold Check:** Flag the daily variance entry if the calculated material mass loss has breached the company's maximum cost tolerance threshold.
+* [ ] **Relief Briefing:** Conduct a face-to-face brief with the incoming shift supervisor regarding the open event, current machine drift trend, and active stabilization attempts.
+* [ ] **Gatekeeper Sign-off:** Physically verify that the first 10-piece subgroup of the incoming shift passes the *Early-Warning Lookback* check before officially transferring control of the production line.
+
+---
+
+## 9. Strategic Key Performance Indicators (KPIs)
+
+To maintain absolute operational control and safeguard corporate margins, executive leadership and plant directors monitor the engine through a strictly defined operational scorecard. 
+
+| Core Business Metric | Target Benchmark | Data Source (Workbook Layer) | Strategic Objective |
+| :--- | :--- | :--- | :--- |
+| **Data Reconciliation Window** | $< 24$ Hours | `Daily Variance` Tab | Minimizes operational lag; guarantees that material drift is caught before it impacts the weekly P&L. |
+| **Engineering Giveaway %** | Optimized toward $0\%$ | `Master PM Workbook` / `Gutters New` | Eradicates silent margin erosion from running profiles heavier than nominal specification limits. |
+| **Regrind Recovery Efficiency** | Maximized vs. Total Scrap | `Floor Scrap Log` Tab | Ensures floor purges and startup trims are systematically recycled back into production, lowering virgin resin costs. |
+| **Potential Process Capability ($C_p$)** | $\ge 1.33$ | `Process Capabilities` Tab | Measures the theoretical capability of the extrusion machinery under optimized conditions. |
+| **Actual Process Capability ($C_{pk}$)** | $\ge 1.0$ | `Process Capabilities` Tab | Tracks the real-world, shift-by-shift performance of the line, accounting for machine drift and operator adjustments. |
+| **Data Entry Compliance Rate** | $\ge 99.5\%$ of active shifts | Master Audit Trail | Replaces "IT Infrastructure Uptime." Tracks floor supervisor compliance in submitting shift validation metrics on time. |
+| **Early-Warning Response Latency** | $< 15$ Minutes | `SPC Event Log` Tab | Measures organizational agility—the exact time elapsed between an automated control limit breach and documented corrective action. |
+
+---
+
+## 10. Strategic Roadmap & Next Steps
+
+To transition the manufacturing floor from a reactive data posture to a fully predictive, automated operating environment, the next phase of the architecture focuses on scaling insights into automated operational actions.
+
+### 🎯 Phase 2 Implementation Initiatives
+
+#### 1. Financial Pareto Analysis (The 80/20 Margin Filter)
+* **Objective:** Architect dynamic Pareto models that instantly slice and rank the root causes of engineering giveaway and process loss.
+* **Impact:** Allows management to isolate exactly which machine, product line, or raw material formulation is responsible for the top 80% of financial variance, optimizing resource allocation.
+
+#### 2. Advanced Process Optimization (Design of Experiments - DOE)
+* **Objective:** Run structured, data-driven DOEs correlating machine settings (screw speed, multi-zone temperature profiles, die geometries) with physical PVC formulation variables.
+* **Impact:** Systematically uncovers and institutionalizes the absolute "operating sweet spot" for each product line, guaranteeing high-margin runs regardless of operator experience.
+
+#### 3. Real-Time Closed-Loop Regrind Integration
+* **Objective:** Develop an automated decision-rule engine that programmatically categorizes floor scrap into regrind-eligible versus true waste streams.
+* **Impact:** Automatically routes eligible recycled mass back into the active material balance log in real time, drastically lowering virgin material consumption metrics.
+
+#### 4. Predictive Asset Maintenance (Cpk to CapEx Correlation)
+* **Objective:** Build an analytics pipeline that cross-references continuous downward trends in Cpk with physical maintenance logs.
+* **Impact:** Flags structural die wear and extrusion screw degradation *weeks before* they breach engineering limits, shifting capital asset management from emergency downtime to proactive scheduling.
+
+#### 5. Pareto-Driven Calibration Automation
+* **Objective:** Programmatically trigger precision machine-recalibration work orders based on the ranked giveaway contributors identified in the Pareto engine.
+* **Impact:** Removes human guesswork or arbitrary scheduling from toolroom maintenance, ensuring the highest-bleeding assets are prioritized first.
+
+---
+
+## 11. Organizational Scaling & Adaptability
+
+While this engine was custom-built to solve structural material control issues on our primary extrusion lines, the underlying information architecture is fully modular and designed for multi-plant deployment.
+
+* **Internal Collaboration:** We welcome cross-functional collaboration between Plant Operations, Quality Assurance Leads, and Corporate Finance teams to further customize alert thresholds and reporting cadences.
+* **Framework Adaptability:** The master calculation engines, reference schema layouts, and SPC charting matrices can be seamlessly cloned and re-mapped to support parallel manufacturing operations (e.g., injection molding, compounding lines, or secondary packaging facilities) with minimal configuration changes.
+
+## 12. Security, Access Control & IP
 We enforce a strict role-based access control (RBAC) model across all data surfaces to protect proprietary logic:
 * **Floor Operators:** Read-only access to their product line's current SPC chart and shift sample entry forms. No access to financial data or control limit settings.
 * **Quality Leads:** Full read access to all SPC data, Process Capabilities, and alert history. Write access to floor scrap logs and operational notes.
@@ -170,7 +245,7 @@ All dashboard instances have download and duplication permissions disabled for n
 
 ---
 
-## 9. License & Attribution
+## 13. License & Attribution
 This project is released under the **MIT License**.
 
 Built and deployed in partnership with the plant operations and quality team at a major PVC manufacturing facility in Kenya. Special recognition to the Plant Quality Lead and the production floor team for rapid collaboration, immediate floor execution, and trust in data-driven process management.

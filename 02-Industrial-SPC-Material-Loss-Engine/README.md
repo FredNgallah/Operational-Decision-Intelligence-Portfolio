@@ -4,7 +4,7 @@
 
 1. [Problem Statement](#1-problem-statement)
 2. [Solution Overview](#2-solution-overview)
-3. [Getting Started](#3-getting-started)
+3. [System Deployment & Implementation](#3-System-Deployment-&-Implementation)
 4. [Key Concepts & Data Model](#4-key-concepts--data-model)
 5. [SPC & Early-Warning Logic](#5-spc--early-warning-logic)
 6. [Dashboards & Visualizations](#6-dashboards--visualizations)
@@ -57,7 +57,21 @@ PLC/SCADA and manual floor logs feed the stream processor, which drives the SPC 
 
 ---
 
-## 3. Key Concepts & Data Model
+## 3. System Deployment & Implementation
+
+To maximize operational adoption and completely eliminate standard enterprise software licensing and IT infrastructure costs, the entire engine is architected natively within the Google Workspace ecosystem. This allows for an ultra-low friction, zero-downtime deployment.
+
+### 📋 Enterprise Requirements
+* **Platform:** Google Workspace / Google Sheets (Zero local server footprints or database upkeep required).
+* **Security:** Integrated OAuth 2.0 with native Google Identity Access Management (IAM).
+* **Deployment Time:** < 2 Hours from template provisioning to live floor data capture.
+
+### 🚀 Strategic Implementation Blueprint
+1. **Master Architecture Provisioning:** The core analytical workbook, including the automated mass-balance matrices and SPC early-warning engines, is copied directly into the organization's secure corporate Google Drive.
+2. **Floor Input Mapping:** Data entry cells are designated on standard floor tablets or terminals, enabling supervisors to log raw metrics natively with automated input validation to block typos or data corruption.
+3. **Executive Dashboard Routing:** Role-gated views are instantly generated for Plant Directors, Finance, and Quality Teams, delivering real-time operational transparency without exposing underlying master formulas or proprietary IP.
+
+## 4. Key Concepts & Data Model
 
 ### Core Terminology
 * **Subgrouping (10-piece):** Every 10 consecutive pieces from a product line form one subgroup. This cadence is the foundation of valid X-bar SPC charting, enables early-shift spike detection, and gives floor supervisors an actionable signal without waiting for end-of-shift summaries.
@@ -70,7 +84,7 @@ PLC/SCADA and manual floor logs feed the stream processor, which drives the SPC 
 
 ---
 
-## 4. Operational Playbooks & Alerts
+## 5. Operational Playbooks & Alerts
 
 ### Automated Alert Rules
 | Trigger Condition | Alert | Audience | Priority |
@@ -90,7 +104,7 @@ PLC/SCADA and manual floor logs feed the stream processor, which drives the SPC 
 
 ---
 
-## 5. Security, Access Control & IP
+## 6. Security, Access Control & IP
 We enforce a strict role-based access control (RBAC) model across all data surfaces to protect proprietary logic:
 * **Floor Operators:** Read-only access to their product line's current SPC chart and shift sample entry forms. No access to financial data or control limit settings.
 * **Quality Leads:** Full read access to all SPC data, Process Capabilities, and alert history. Write access to floor scrap logs and operational notes.
@@ -100,11 +114,11 @@ All dashboard instances have download and duplication permissions disabled for n
 
 ---
 
-## 6. License & Attribution
+## 7. License & Attribution
 This project is released under the **MIT License**.
 
 Built and deployed in partnership with the plant operations and quality team at a major PVC manufacturing facility in Kenya. Special recognition to the Plant Quality Lead and the production floor team for rapid collaboration, immediate floor execution, and trust in data-driven process management.
 
 ### System Maintainers
 * **Fred** | Data Engineer | pipeline & systems architecture
-* **Jotham** | Plant Quality Lead | SPC chart validation & floor implementation
+* **J.N.S** | Plant Quality Lead | SPC chart validation & floor implementation

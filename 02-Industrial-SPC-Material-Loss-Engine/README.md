@@ -108,22 +108,38 @@ The highest financial leverage of this engine comes from its predictive capabili
 * **Pre-Emptive Deficit Prevention:** If the initial subgroup mean breaches the UCL or LCL, the dashboard immediately triggers a critical validation flag. 
 * **The Business Impact:** This alert empowers the floor supervisor to halt operations and recalibrate the extruder barrel *before* the run generates significant over-weight giveaway or under-weight structural scrap. By correcting the process drift at piece 10 instead of piece 10,000, **the system actively prevents thousands of kilograms of material waste per shift.**
 
-```text
-[Start of Production Run] 
-         │
-         ▼
-[Sample First 10 Pieces] ──> [Automated Formula Scan]
-                                     │
-                    ┌────────────────┴────────────────┐
-                    ▼                                 ▼
-         [Within Control Limits]             [Breaches UCL / LCL]
-                    │                                 │
-                    ▼                                 ▼
-         🟢 RUN AUTHORIZED                    🚨 IMMEDIATE FLAG RAISED
-                                             (Supervisor Recalibrates 
-                                              BEFORE Material Waste)
+* ## 6. Dashboards & Executive Visualizations
 
-## 6. Operational Playbooks & Alerts
+The system features a multi-tiered, role-gated reporting architecture designed to provide immediate operational visibility to floor supervisors while serving high-level financial health metrics directly to the executive suite.
+
+### 📊 Strategic Information Architecture
+
+The workbook is organized into four dedicated operational control layers:
+
+#### 1. Real-Time Process Visibility (Production Control Surface)
+* **X-Bar Control Tracking:** The top row features live, dynamically updating control charts for every active product line (**Gutter, 140mm Casings, 160mm Casings, 160mm PN6, Downpipes, 200mm Casings**).
+* **Metric Overlays:** Each chart visualizes shift averages against nominal targets, the statistical center line, operational boundaries (UCL/LCL), and strict engineering tolerances (USL/LSL). 
+* **Temporal Tracking:** Integrated weekly separators allow supervisors to immediately isolate batch performance variations across different shift teams.
+
+#### 2. Daily Material Consumption Variance (Floor Summary Layer)
+* **Micro-Reconciliation Ledger:** A daily audit table that automatically aggregates material metrics across the plant floor.
+* **Core Metrics Tracked:** Tracks raw mass consumption, inline good mass output, and physically weighed floor scrap.
+* **Automated Yield Analysis:** Instantly computes physical floor variance (kg) and percentage deviations, serving as the primary diagnostic tool for catching unaccounted material drift before the week concludes.
+
+#### 3. Mass Balance KPI Surface (Executive Financial View)
+* **Executive KPI Cards:** A macro-level command center displaying high-level operational health indicators: *Total Pieces Extruded, Actual Mass Consumed, Total Scrap (kg),* and *Engineering Giveaway Mass/Percentage.*
+* **Material Destination Breakdown:** A clean, visual financial classification matrix that segments every kilogram of raw material into its true economic endpoint:
+  * **Conforming BOM Weight:** Revenue-generating mass shipped to customers.
+  * **Regrind/Scrap Weight:** Material caught on the floor to be recycled or written off.
+  * **SPC Over-Weight Giveaway:** Profit margin quietly lost to running heavy.
+  * **Unaccounted Process Loss:** True material deficits needing operational investigation.
+
+#### 4. Process Capability & Optimization (Continuous Improvement Engine)
+* **Capability Matrix:** A automated per-product $C_p$ and $C_{pk}$ capability table that mathematically scores how reliably a machine line can hold its structural targets without drifting.
+* **Process Sigma Scores:** Dynamically evaluates current machine capability status (e.g., *Capable, Marginally Capable, Action Required*).
+* **Auto-Generated Operational Recommendations:** Translates statistical variances into plain-English directives for the engineering team (e.g., *"Initiate die-centering calibration on Line 3"* or *"Review raw material blend consistency"*).
+
+## 7. Operational Playbooks & Alerts
 
 ### Automated Alert Rules
 | Trigger Condition | Alert | Audience | Priority |
@@ -143,7 +159,7 @@ The highest financial leverage of this engine comes from its predictive capabili
 
 ---
 
-## 7. Security, Access Control & IP
+## 8. Security, Access Control & IP
 We enforce a strict role-based access control (RBAC) model across all data surfaces to protect proprietary logic:
 * **Floor Operators:** Read-only access to their product line's current SPC chart and shift sample entry forms. No access to financial data or control limit settings.
 * **Quality Leads:** Full read access to all SPC data, Process Capabilities, and alert history. Write access to floor scrap logs and operational notes.
@@ -153,7 +169,7 @@ All dashboard instances have download and duplication permissions disabled for n
 
 ---
 
-## 8. License & Attribution
+## 9. License & Attribution
 This project is released under the **MIT License**.
 
 Built and deployed in partnership with the plant operations and quality team at a major PVC manufacturing facility in Kenya. Special recognition to the Plant Quality Lead and the production floor team for rapid collaboration, immediate floor execution, and trust in data-driven process management.

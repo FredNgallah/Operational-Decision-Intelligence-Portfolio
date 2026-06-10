@@ -108,7 +108,7 @@ The highest financial leverage of this engine comes from its predictive capabili
 * **Pre-Emptive Deficit Prevention:** If the initial subgroup mean breaches the UCL or LCL, the dashboard immediately triggers a critical validation flag. 
 * **The Business Impact:** This alert empowers the floor supervisor to halt operations and recalibrate the extruder barrel *before* the run generates significant over-weight giveaway or under-weight structural scrap. By correcting the process drift at piece 10 instead of piece 10,000, **the system actively prevents thousands of kilograms of material waste per shift.**
 
-* ## 6. Dashboards & Executive Visualizations
+## 6. Dashboards & Executive Visualizations
 
 The system features a multi-tiered, role-gated reporting architecture designed to provide immediate operational visibility to floor supervisors while serving high-level financial health metrics directly to the executive suite.
 

@@ -179,7 +179,7 @@ A premium data architecture is only as effective as the operational discipline i
 4. **Log** the intervention in the **Floor Scrap Log** tab with an operational note.
 5. **Restart** and confirm the next subgroup mean falls within UCL/LCL before resuming full production.
 
-### 🚨 On-Call Playbook (Quality Leads)
+### 🚨 On-Call Playbook (For Quality Leads)
 When the automated engine flags a process deviation—such as a critical capability breach ($C_{pk} < 1.0$) or an X-bar control limit violation—the team executes the following mandatory containment protocol:
 
 1. **Isolate & Audit:** Immediately pull the *Process Capabilities* report on the centralized dashboard for the flagged product line.

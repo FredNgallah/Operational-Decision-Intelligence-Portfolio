@@ -4,17 +4,16 @@
 
 1. [Problem Statement](#1-problem-statement)
 2. [Solution Overview](#2-solution-overview)
-3. [System Deployment & Implementation](#3-System-Deployment--Implementation)
+3. [System Deployment & Implementation](#3-system-deployment--implementation)
 4. [Key Concepts & Data Model](#4-key-concepts--data-model)
-5. [Statistical Process Control (SPC) & Early-Warning Logic](#5-Statistical-Process-Control-(SPC)--Early-Warning-Logic)
-6. [Dashboards & Visualizations](#6-dashboards--visualizations)
+5. [Statistical Process Control (SPC) & Early-Warning Logic](#5-statistical-process-control-spc--early-warning-logic)
+6. [Dashboards & Executive Visualizations](#6-dashboards--executive-visualizations)
 7. [Operational Playbooks & Alerts](#7-operational-playbooks--alerts)
-8. [Testing, Validation & Metrics](#8-testing-validation--metrics)
+8. [Strategic Key Performance Indicators (KPIs)](#8-strategic-key-performance-indicators-kpis)
 9. [Security, Access Control & IP](#9-security-access-control--ip)
-10. [Roadmap & Next Steps](#10-roadmap--next-steps)
-11. [Contributing](#11-contributing)
+10. [Strategic Roadmap & Next Steps](#10-strategic-roadmap--next-steps)
+11. [Organizational Scaling & Adaptability](#11-organizational-scaling--adaptability)
 12. [License & Attribution](#12-license--attribution)
-13. [Appendices](#13-appendices)
 
 ---
 
@@ -40,20 +39,18 @@ We deployed a real-time Closed-Loop Material Loss & SPC Engine with two-tier rec
 ## 2. Solution Overview
 
 ### Architecture & System Data Flow
-PLC/SCADA and manual floor logs feed the stream processor, which drives the SPC Engine, Reconciliation Engine, and Data Warehouse. Outputs surface on role-gated dashboards for floor, quality, and executive audiences.
+Manual floor logs and quality samples are routed directly into a centralized calculation engine. This engine drives the SPC metrics, daily reconciliations, and the Master PM database. Outputs are surfaced on role-gated, read-only dashboard surfaces for floor supervisors, quality leads, and executive audiences.
 
 ### Component Map
 | Component | Purpose | Inputs | Outputs | Stack | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Data Ingest** | Collect raw production, scrap, and store-issue data | PLC/SCADA signals, manual floor logs, ERP store gate issues | Normalized event records | Kafka / Airflow, Python | Target ingest latency < 5 min per batch |
-| **Stream Processing** | Validate, deduplicate, and route events | Raw ingest events | Clean records to warehouse | Apache Kafka, dbt | Handles late-arriving manual entries |
-| **SPC Engine** | Compute X-bar, Moving Range, UCL/LCL | 10-piece subgroup sample weights per product line | SPC events, control limit alerts | Python (NumPy/Pandas) | Recalculates limits dynamically per settings sheet |
-| **Early-Warning Lookback** | Flag process spikes on the first 10 samples of a run | First subgroup per shift/run | Early-warning flag | Python | Prevents thousands of kg of scrap before shift completes |
-| **Reconciliation Engine** | Store Gate vs. Floor Gate analysis | Weekly store issues (kg), daily floor consumption (kg), inline mass, floor scrap | Process loss %, variance window | Python, SQL (Postgres) | Two-tier: macro weekly + micro daily |
-| **Process Capabilities** | Calculate Cp, Cpk per product line | SPC data, LSL/USL settings | Capability status, recommendations | Python (SciPy) | Flags "INCAPABLE" lines for immediate DOE action |
-| **Dashboard & Alerts** | Surface KPIs and tables | Live charts, daily variance tables, alerts | Role-gated dashboard environments | Grafana / Power BI / Dash | Role-gated; no download/formula access for exec view |
-| **Data Warehouse** | Single source of truth for all data | All pipeline outputs | Queryable analytical tables | PostgreSQL | 90-day hot retention; 2-year cold storage |
-| **Access Controls** | Enforce role-based permissions | User roles (floor, quality, exec, finance) | Scoped views, stripped export rights | Postgres RLS, dashboard RBAC | Protects IP and prevents formula duplication |
+| **Data Ingest** | Collect raw production, scrap, and weight samples | Floor tablets, optimized entry forms | Cleaned event records | Google Sheets Forms / Data Validation | Enforces strict input rules to prevent data corruption |
+| **Processing Engine** | Validate, deduplicate, and calculate metrics | Raw ingest entries | Formatted records to Master PM | Google Apps Script / Array Formulas | Eliminates manual data entry lag |
+| **SPC Engine** | Compute X-bar, Moving Range, UCL/LCL | 10-piece subgroup sample weights per line | SPC charting, control limit boundaries | `Gutters New` Ref Tab (`MAP`/`LAMBDA`) | Recalculates limits dynamically based on active targets |
+| **Early-Warning Lookback** | Flag process spikes on the first 10 samples of a run | First subgroup per shift/run | Early-warning flag | Dynamic Cell Formatting / Logic | Prevents thousands of kg of scrap before shift completes |
+| **Reconciliation Engine** | Store Gate vs. Floor Gate analysis | Weekly store issues (kg), daily floor consumption | Process loss %, variance window | Master PM Workbook | Two-tier: macro weekly + micro daily |
+| **Process Capabilities** | Calculate Cp, Cpk per product line | SPC data, LSL/USL settings | Capability status, actionable recommendations | Statistical Array Logic | Flags "INCAPABLE" lines for immediate mechanical action |
+| **Dashboards & Alerts** | Surface KPIs and operational tables | Live charts, daily variance metrics | Role-gated dashboard environments | Google Workspace Gated Views | Executive metrics without exposing raw formulas |
 
 ---
 
@@ -71,6 +68,8 @@ To maximize operational adoption and completely eliminate standard enterprise so
 2. **Floor Input Mapping:** Data entry cells are designated on standard floor tablets or terminals, enabling supervisors to log raw metrics natively with automated input validation to block typos or data corruption.
 3. **Executive Dashboard Routing:** Role-gated views are instantly generated for Plant Directors, Finance, and Quality Teams, delivering real-time operational transparency without exposing underlying master formulas or proprietary IP.
 
+---
+
 ## 4. Key Concepts & Data Model
 
 ### Core Terminology
@@ -86,6 +85,7 @@ To maximize operational adoption and completely eliminate standard enterprise so
 * **The Audit Layer (Master PM Workbook):** Aggregates weekly warehouse store issues against daily aggregated floor outputs to calculate the final mass balance and output the precise financial classifications.
 
 ---
+
 ## 5. Statistical Process Control (SPC) & Early-Warning Logic
 
 Instead of waiting for a weekly or monthly inventory audit to reveal that a product line has been running heavy, the engine utilizes real-time Statistical Process Control (SPC) to capture and flag machine drift the moment it occurs on the floor.
@@ -104,9 +104,27 @@ To eliminate tracking noise and isolate true structural process variation, the s
 
 The highest financial leverage of this engine comes from its predictive capability at the absolute start of an extrusion run, bypassing the standard operational lag that plagues traditional plants.
 
+```text
+[Start of Production Run] 
+         │
+         ▼
+[Sample First 10 Pieces] ──> [Automated Formula Scan]
+                                     │
+                    ┌────────────────┴────────────────┐
+                    ▼                                 ▼
+         [Within Control Limits]             [Breaches UCL / LCL]
+                    │                                 │
+                    ▼                                 ▼
+         🟢 RUN AUTHORIZED                    🚨 IMMEDIATE FLAG RAISED
+                                             (Supervisor Recalibrates 
+                                              BEFORE Material Waste)
+```
+
 * **Instantaneous Validation:** At the initialization of any product run, the engine evaluates the very first 10 samples (the first complete subgroup) and instantly scores the mean against established control boundaries.
 * **Pre-Emptive Deficit Prevention:** If the initial subgroup mean breaches the UCL or LCL, the dashboard immediately triggers a critical validation flag. 
 * **The Business Impact:** This alert empowers the floor supervisor to halt operations and recalibrate the extruder barrel *before* the run generates significant over-weight giveaway or under-weight structural scrap. By correcting the process drift at piece 10 instead of piece 10,000, **the system actively prevents thousands of kilograms of material waste per shift.**
+
+---
 
 ## 6. Dashboards & Executive Visualizations
 
@@ -116,17 +134,17 @@ The system features a multi-tiered, role-gated reporting architecture designed t
 
 The workbook is organized into four dedicated operational control layers:
 
-#### i). Real-Time Process Visibility (Production Control Surface)
+#### 1. Real-Time Process Visibility (Production Control Surface)
 * **X-Bar Control Tracking:** The top row features live, dynamically updating control charts for every active product line (**Gutter, 140mm Casings, 160mm Casings, 160mm PN6, Downpipes, 200mm Casings**).
 * **Metric Overlays:** Each chart visualizes shift averages against nominal targets, the statistical center line, operational boundaries (UCL/LCL), and strict engineering tolerances (USL/LSL). 
 * **Temporal Tracking:** Integrated weekly separators allow supervisors to immediately isolate batch performance variations across different shift teams.
 
-#### ii). Daily Material Consumption Variance (Floor Summary Layer)
+#### 2. Daily Material Consumption Variance (Floor Summary Layer)
 * **Micro-Reconciliation Ledger:** A daily audit table that automatically aggregates material metrics across the plant floor.
 * **Core Metrics Tracked:** Tracks raw mass consumption, inline good mass output, and physically weighed floor scrap.
 * **Automated Yield Analysis:** Instantly computes physical floor variance (kg) and percentage deviations, serving as the primary diagnostic tool for catching unaccounted material drift before the week concludes.
 
-#### iii). Mass Balance KPI Surface (Executive Financial View)
+#### 3. Mass Balance KPI Surface (Executive Financial View)
 * **Executive KPI Cards:** A macro-level command center displaying high-level operational health indicators: *Total Pieces Extruded, Actual Mass Consumed, Total Scrap (kg),* and *Engineering Giveaway Mass/Percentage.*
 * **Material Destination Breakdown:** A clean, visual financial classification matrix that segments every kilogram of raw material into its true economic endpoint:
   * **Conforming BOM Weight:** Revenue-generating mass shipped to customers.
@@ -134,11 +152,12 @@ The workbook is organized into four dedicated operational control layers:
   * **SPC Over-Weight Giveaway:** Profit margin quietly lost to running heavy.
   * **Unaccounted Process Loss:** True material deficits needing operational investigation.
 
-#### iv). Process Capability & Optimization (Continuous Improvement Engine)
+#### 4. Process Capability & Optimization (Continuous Improvement Engine)
 * **Capability Matrix:** A automated per-product $C_p$ and $C_{pk}$ capability table that mathematically scores how reliably a machine line can hold its structural targets without drifting.
 * **Process Sigma Scores:** Dynamically evaluates current machine capability status (e.g., *Capable, Marginally Capable, Action Required*).
 * **Auto-Generated Operational Recommendations:** Translates statistical variances into plain-English directives for the engineering team (e.g., *"Initiate die-centering calibration on Line 3"* or *"Review raw material blend consistency"*).
 
+---
 
 ## 7. Operational Playbooks & Alerts
 
@@ -149,30 +168,28 @@ A premium data architecture is only as effective as the operational discipline i
 | :--- | :--- | :--- | :--- |
 | First subgroup X-bar > UCL or < LCL | Early-Warning Spike | Floor Supervisor, Quality Lead | **🔴Critical** |
 | Any subgroup mean outside control limits | UCL/LCL Breach (mid-run) | Quality Lead | **🔴Critical** |
-| `daily_floor_material_variance_kg` > 500 kg or `pct_floor_mat_variance` > 5% | Daily Variance Threshold | Production Manager, Finance | **🟠High** |
-| Cpk < 1.0 | Process Capabilities tab flags "INCAPABLE" | Quality Lead, Engineering | **🟠High** |
-| % process loss > 2% on Weekly Material Logs | Weekly Process Loss | Plant Manager, Finance | **🟡Medium** |
+| Daily variance > 500 kg or > 5% | Daily Variance Threshold | Production Manager, Finance | **🟠High** |
+| Cpk < 1.0 | Capability Matrix flags "INCAPABLE" | Quality Lead, Engineering | **🟠High** |
+| % process loss > 2% on Weekly Logs | Weekly Process Loss | Plant Manager, Finance | **🟡Medium** |
 
 ### 🚨 On-Call Playbook (For Floor Supervisors)
 1. **Pause** the current run at the next natural break point if an Early-Warning or UCL/LCL breach occurs.
-2. **Check** machine die/tooling temperature and screw speed settings against the Settings sheet targets.
+2. **Check** machine die/tooling temperature and screw speed settings against the target parameters.
 3. **Recalibrate** to the target weight center line—not just within specification limits.
-4. **Log** the intervention in the `floor_scrap` table with an operational note.
+4. **Log** the intervention in the **Floor Scrap Log** tab with an operational note.
 5. **Restart** and confirm the next subgroup mean falls within UCL/LCL before resuming full production.
 
 ### 🚨 On-Call Playbook (Quality Leads)
-
-When the automated engine **flags** a process deviation—such as a critical capability breach ($C_{pk} < 1.0$) or an X-bar control limit violation—the team executes the following mandatory containment protocol:
+When the automated engine flags a process deviation—such as a critical capability breach ($C_{pk} < 1.0$) or an X-bar control limit violation—the team executes the following mandatory containment protocol:
 
 1. **Isolate & Audit:** Immediately pull the *Process Capabilities* report on the centralized dashboard for the flagged product line.
 2. **Execute First-Line Diagnostics:** Review the system's auto-generated operational recommendation (e.g., *"Initiate mechanical Design of Experiments (DOE). Inspect screw wear profile, audit barrel temperature cycling zones, or verify raw material blend consistency"*).
 3. **Engineering Escalation:** If the system-generated diagnostic requires a mechanical inspection or a complex adjustment, immediately escalate the ticket to the plant engineering department.
-4. **Institutional Logging:** Document the exact root cause, timestamps, and mechanical interventions directly into the centralized **SPC Event Log** sheet to build a historical maintenance baseline.
+4. **Institutional Logging:** Document the exact root cause, timestamps, and mechanical interventions directly into the centralized **SPC Event Log** tab to build a historical maintenance baseline.
 
 ---
 
 ### 📋 Shift Handover Checklist (SPC Event Active)
-
 To completely eliminate operational blind spots during shift changeovers—a major source of material waste in traditional manufacturing—supervisors must complete this rigorous data verification before signing off:
 
 * [ ] **Active Event Verification:** Confirm that the active SPC event type and affected product line are fully logged in the **SPC Event Log** tab.
@@ -184,7 +201,7 @@ To completely eliminate operational blind spots during shift changeovers—a maj
 
 ---
 
-## 9. Strategic Key Performance Indicators (KPIs)
+## 8. Strategic Key Performance Indicators (KPIs)
 
 To maintain absolute operational control and safeguard corporate margins, executive leadership and plant directors monitor the engine through a strictly defined operational scorecard. 
 
@@ -195,8 +212,19 @@ To maintain absolute operational control and safeguard corporate margins, execut
 | **Regrind Recovery Efficiency** | Maximized vs. Total Scrap | `Floor Scrap Log` Tab | Ensures floor purges and startup trims are systematically recycled back into production, lowering virgin resin costs. |
 | **Potential Process Capability ($C_p$)** | $\ge 1.33$ | `Process Capabilities` Tab | Measures the theoretical capability of the extrusion machinery under optimized conditions. |
 | **Actual Process Capability ($C_{pk}$)** | $\ge 1.0$ | `Process Capabilities` Tab | Tracks the real-world, shift-by-shift performance of the line, accounting for machine drift and operator adjustments. |
-| **Data Entry Compliance Rate** | $\ge 99.5\%$ of active shifts | Master Audit Trail | Replaces "IT Infrastructure Uptime." Tracks floor supervisor compliance in submitting shift validation metrics on time. |
+| **Data Entry Compliance Rate** | $\ge 99.5\%$ of active shifts | Master Audit Trail | Tracks floor supervisor compliance in submitting shift validation metrics on time. |
 | **Early-Warning Response Latency** | $< 15$ Minutes | `SPC Event Log` Tab | Measures organizational agility—the exact time elapsed between an automated control limit breach and documented corrective action. |
+
+---
+
+## 9. Security, Access Control & IP
+
+We enforce a strict role-based access control (RBAC) model across all data surfaces to protect proprietary logic:
+* **Floor Operators:** Read-only access to their product line's current SPC chart and shift sample entry forms. No access to financial data or control limit settings.
+* **Quality Leads:** Full read access to all SPC data, Process Capabilities, and alert history. Write access to floor scrap logs and operational notes.
+* **Finance & Executive:** Secure, view-only dashboard access to daily variance, weekly process loss, and executive summary KPIs. Zero access to underlying formulas, schemas, or raw data exports.
+
+All dashboard instances have download and duplication permissions disabled for non-admin roles to protect core system IP, including control limit derivation logic and the capability index decision matrix.
 
 ---
 
@@ -235,17 +263,10 @@ While this engine was custom-built to solve structural material control issues o
 * **Internal Collaboration:** We welcome cross-functional collaboration between Plant Operations, Quality Assurance Leads, and Corporate Finance teams to further customize alert thresholds and reporting cadences.
 * **Framework Adaptability:** The master calculation engines, reference schema layouts, and SPC charting matrices can be seamlessly cloned and re-mapped to support parallel manufacturing operations (e.g., injection molding, compounding lines, or secondary packaging facilities) with minimal configuration changes.
 
-## 12. Security, Access Control & IP
-We enforce a strict role-based access control (RBAC) model across all data surfaces to protect proprietary logic:
-* **Floor Operators:** Read-only access to their product line's current SPC chart and shift sample entry forms. No access to financial data or control limit settings.
-* **Quality Leads:** Full read access to all SPC data, Process Capabilities, and alert history. Write access to floor scrap logs and operational notes.
-* **Finance & Executive:** Secure, view-only dashboard access to daily variance, weekly process loss, and executive summary KPIs. Zero access to underlying formulas, schemas, or raw data exports.
-
-All dashboard instances have download and duplication permissions disabled for non-admin roles to protect core system IP, including control limit derivation logic and the capability index decision matrix.
-
 ---
 
-## 13. License & Attribution
+## 12. License & Attribution
+
 This project is released under the **MIT License**.
 
 Built and deployed in partnership with the plant operations and quality team at a major PVC manufacturing facility in Kenya. Special recognition to the Plant Quality Lead and the production floor team for rapid collaboration, immediate floor execution, and trust in data-driven process management.

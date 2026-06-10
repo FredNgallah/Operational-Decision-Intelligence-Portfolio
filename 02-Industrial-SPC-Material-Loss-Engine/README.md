@@ -4,7 +4,7 @@
 
 1. [Problem Statement](#1-problem-statement)
 2. [Solution Overview](#2-solution-overview)
-3. [System Deployment & Implementation](#3-System-Deployment-&-Implementation)
+3. [System Deployment & Implementation](#3-System-Deployment--Implementation)
 4. [Key Concepts & Data Model](#4-key-concepts--data-model)
 5. [SPC & Early-Warning Logic](#5-spc--early-warning-logic)
 6. [Dashboards & Visualizations](#6-dashboards--visualizations)

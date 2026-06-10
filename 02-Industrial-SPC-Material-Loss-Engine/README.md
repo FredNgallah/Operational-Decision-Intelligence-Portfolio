@@ -116,17 +116,17 @@ The system features a multi-tiered, role-gated reporting architecture designed t
 
 The workbook is organized into four dedicated operational control layers:
 
-#### 1. Real-Time Process Visibility (Production Control Surface)
+#### i). Real-Time Process Visibility (Production Control Surface)
 * **X-Bar Control Tracking:** The top row features live, dynamically updating control charts for every active product line (**Gutter, 140mm Casings, 160mm Casings, 160mm PN6, Downpipes, 200mm Casings**).
 * **Metric Overlays:** Each chart visualizes shift averages against nominal targets, the statistical center line, operational boundaries (UCL/LCL), and strict engineering tolerances (USL/LSL). 
 * **Temporal Tracking:** Integrated weekly separators allow supervisors to immediately isolate batch performance variations across different shift teams.
 
-#### 2. Daily Material Consumption Variance (Floor Summary Layer)
+#### ii). Daily Material Consumption Variance (Floor Summary Layer)
 * **Micro-Reconciliation Ledger:** A daily audit table that automatically aggregates material metrics across the plant floor.
 * **Core Metrics Tracked:** Tracks raw mass consumption, inline good mass output, and physically weighed floor scrap.
 * **Automated Yield Analysis:** Instantly computes physical floor variance (kg) and percentage deviations, serving as the primary diagnostic tool for catching unaccounted material drift before the week concludes.
 
-#### 3. Mass Balance KPI Surface (Executive Financial View)
+#### iii). Mass Balance KPI Surface (Executive Financial View)
 * **Executive KPI Cards:** A macro-level command center displaying high-level operational health indicators: *Total Pieces Extruded, Actual Mass Consumed, Total Scrap (kg),* and *Engineering Giveaway Mass/Percentage.*
 * **Material Destination Breakdown:** A clean, visual financial classification matrix that segments every kilogram of raw material into its true economic endpoint:
   * **Conforming BOM Weight:** Revenue-generating mass shipped to customers.
@@ -134,10 +134,11 @@ The workbook is organized into four dedicated operational control layers:
   * **SPC Over-Weight Giveaway:** Profit margin quietly lost to running heavy.
   * **Unaccounted Process Loss:** True material deficits needing operational investigation.
 
-#### 4. Process Capability & Optimization (Continuous Improvement Engine)
+#### iv). Process Capability & Optimization (Continuous Improvement Engine)
 * **Capability Matrix:** A automated per-product $C_p$ and $C_{pk}$ capability table that mathematically scores how reliably a machine line can hold its structural targets without drifting.
 * **Process Sigma Scores:** Dynamically evaluates current machine capability status (e.g., *Capable, Marginally Capable, Action Required*).
 * **Auto-Generated Operational Recommendations:** Translates statistical variances into plain-English directives for the engineering team (e.g., *"Initiate die-centering calibration on Line 3"* or *"Review raw material blend consistency"*).
+* ![Executive Summary Dashboard](C:\SPC Project Files/Dashboard.png)
 
 ## 7. Operational Playbooks & Alerts
 

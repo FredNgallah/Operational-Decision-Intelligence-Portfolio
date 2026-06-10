@@ -1,5 +1,23 @@
 # Real-Time Statistical Process Control (SPC) & Closed-Loop Material Loss Engine
 
+## 📖 Table of Contents
+
+1. [Problem Statement](#1-problem-statement)
+2. [Solution Overview](#2-solution-overview)
+3. [Getting Started](#3-getting-started)
+4. [Key Concepts & Data Model](#4-key-concepts--data-model)
+5. [SPC & Early-Warning Logic](#5-spc--early-warning-logic)
+6. [Dashboards & Visualizations](#6-dashboards--visualizations)
+7. [Operational Playbooks & Alerts](#7-operational-playbooks--alerts)
+8. [Testing, Validation & Metrics](#8-testing-validation--metrics)
+9. [Security, Access Control & IP](#9-security-access-control--ip)
+10. [Roadmap & Next Steps](#10-roadmap--next-steps)
+11. [Contributing](#11-contributing)
+12. [License & Attribution](#12-license--attribution)
+13. [Appendices](#13-appendices)
+
+---
+
 ### Executive Summary
 In continuous plastic extrusion and manufacturing, untracked raw material variance and delayed quality feedback directly erode gross margins. This project delivers an enterprise-grade Decision Intelligence system deployed for a major PVC manufacturing plant in Kenya.
 

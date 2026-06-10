@@ -86,8 +86,25 @@ To maximize operational adoption and completely eliminate standard enterprise so
 * **The Audit Layer (Master PM Workbook):** Aggregates weekly warehouse store issues against daily aggregated floor outputs to calculate the final mass balance and output the precise financial classifications.
 
 ---
+## 5. Statistical Process Control (SPC) & Early-Warning Logic
 
-## 5. Operational Playbooks & Alerts
+Instead of waiting for a weekly or monthly inventory audit to reveal that a product line has been running heavy, the engine utilizes real-time Statistical Process Control (SPC) to capture and flag machine drift the moment it occurs on the floor.
+
+### 📈 X-Bar & Moving Range (MR) Framework
+
+To eliminate tracking noise and isolate true structural process variation, the system groups raw weight samples into highly disciplined analytical frameworks:
+
+* **Subgroup Optimization (10-Piece Cadence):** For each 10-piece sample cycle, the engine automatically computes the subgroup mean ($\bar{X}$ / X-bar) and the Moving Range ($MR$) between consecutive subgroup averages.
+* **Dynamic Control Limits:** Upper and Lower Control Limits (UCL / LCL) are dynamically calculated at $\pm3\sigma$ (sigma) of within-subgroup variation, using historical process baselines and standard industrial engineering constants. 
+* **Process Capability Anchors:** The system charts the process center line against the grand mean of all subgroup averages, while simultaneously overlaying Upper and Lower Specification Limits (USL / LSL). This supports live $C_p$ and $C_{pk}$ capability analysis to ensure the lines are physically capable of hitting target metrics.
+
+---
+
+### 🛑 Proactive Early-Warning Lookback
+
+The highest financial leverage of this engine comes from its predictive capability at the absolute start of an extrusion run, bypassing the standard operational lag that plagues traditional plants.
+
+## 6. Operational Playbooks & Alerts
 
 ### Automated Alert Rules
 | Trigger Condition | Alert | Audience | Priority |
@@ -107,7 +124,7 @@ To maximize operational adoption and completely eliminate standard enterprise so
 
 ---
 
-## 6. Security, Access Control & IP
+## 7. Security, Access Control & IP
 We enforce a strict role-based access control (RBAC) model across all data surfaces to protect proprietary logic:
 * **Floor Operators:** Read-only access to their product line's current SPC chart and shift sample entry forms. No access to financial data or control limit settings.
 * **Quality Leads:** Full read access to all SPC data, Process Capabilities, and alert history. Write access to floor scrap logs and operational notes.
@@ -117,7 +134,7 @@ All dashboard instances have download and duplication permissions disabled for n
 
 ---
 
-## 7. License & Attribution
+## 8. License & Attribution
 This project is released under the **MIT License**.
 
 Built and deployed in partnership with the plant operations and quality team at a major PVC manufacturing facility in Kenya. Special recognition to the Plant Quality Lead and the production floor team for rapid collaboration, immediate floor execution, and trust in data-driven process management.

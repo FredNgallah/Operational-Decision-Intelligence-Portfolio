@@ -145,7 +145,7 @@ The workbook is organized into four dedicated operational control layers:
 ### Automated Alert Rules
 | Trigger Condition | Alert | Audience | Priority |
 | :--- | :--- | :--- | :--- |
-| First subgroup X-bar > UCL or < LCL | Early-Warning Spike | Floor Supervisor, Quality Lead | **Critical** |
+| First subgroup X-bar > UCL or < LCL | Early-Warning Spike | Floor Supervisor, Quality Lead | **🔴 Critical** |
 | Any subgroup mean outside control limits | UCL/LCL Breach (mid-run) | Quality Lead | **Critical** |
 | `daily_floor_material_variance_kg` > 500 kg or `pct_floor_mat_variance` > 5% | Daily Variance Threshold | Production Manager, Finance | **High** |
 | Cpk < 1.0 | Process Capabilities tab flags "INCAPABLE" | Quality Lead, Engineering | **High** |

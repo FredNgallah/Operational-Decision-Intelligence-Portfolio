@@ -82,6 +82,10 @@ To maximize operational adoption and completely eliminate standard enterprise so
 * **Engineering Giveaway:** The mass produced above the BOM target weight—product given to customers for free due to machine over-weight setting. Classified as an unbilled profit loss.
 * **Unaccounted Process Loss:** The residual variance after all tracked categories (BOM mass, regrind/scrap, giveaway) are subtracted from total material input. Attributable to dust, fluff, moisture, and purge losses.
 
+1. **The Ingest Layer (Floor Logs):** Raw shift counts, scrap weights, and 10-piece sample measurements are captured via optimized data-entry logs with built-in data validation to prevent entry errors.
+2. **The Reference & Calculation Engine (`Gutters New`):** Houses the master product specifications, nominal BOM targets, and historical statistical constants. It runs the automated `MAP` + `LAMBDA` array formulas to instantly compute control boundaries and process deviations across thousands of rows without manual dragging.
+3. **The Audit Layer (Master PM Workbook):** Aggregates weekly warehouse store issues against daily aggregated floor outputs to calculate the final mass balance and output the precise financial classifications.
+
 ---
 
 ## 5. Operational Playbooks & Alerts

@@ -107,17 +107,21 @@ The highest financial leverage of this engine comes from its predictive capabili
 * **Instantaneous Validation:** At the initialization of any product run, the engine evaluates the very first 10 samples (the first complete subgroup) and instantly scores the mean against established control boundaries.
 * **Pre-Emptive Deficit Prevention:** If the initial subgroup mean breaches the UCL or LCL, the dashboard immediately triggers a critical validation flag. 
 * **The Business Impact:** This alert empowers the floor supervisor to halt operations and recalibrate the extruder barrel *before* the run generates significant over-weight giveaway or under-weight structural scrap. By correcting the process drift at piece 10 instead of piece 10,000, **the system actively prevents thousands of kilograms of material waste per shift.**
-* ```markdown
-```mermaid
-graph TD
-    A[Start of Production Run] --> B[Sample First 10 Pieces]
-    B --> C[Automated Formula Scan]
-    C --> D{Process Status}
-    D -->|Within Control Limits| E[🟢 RUN AUTHORIZED]
-    D -->|Breaches UCL / LCL| F[🚨 IMMEDIATE FLAG RAISED<br>Supervisor Recalibrates Before Waste]
-    
-    style E fill:#d4edda,stroke:#28a745,stroke-width:2px;
-    style F fill:#f8d7da,stroke:#dc3545,stroke-width:2px;
+
+```text
+[Start of Production Run] 
+         │
+         ▼
+[Sample First 10 Pieces] ──> [Automated Formula Scan]
+                                     │
+                    ┌────────────────┴────────────────┐
+                    ▼                                 ▼
+         [Within Control Limits]             [Breaches UCL / LCL]
+                    │                                 │
+                    ▼                                 ▼
+         🟢 RUN AUTHORIZED                    🚨 IMMEDIATE FLAG RAISED
+                                             (Supervisor Recalibrates 
+                                              BEFORE Material Waste)
 
 ## 6. Operational Playbooks & Alerts
 

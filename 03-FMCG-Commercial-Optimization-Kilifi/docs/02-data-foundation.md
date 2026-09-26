@@ -6,7 +6,7 @@
 
 ## 1. Architecture Overview & System Strategy
 
-To move Meru Fresh Dairy Ltd. from gut-feel decision-making to data-driven commercial execution, we constructed a unified 20-domain operational data infrastructure. 
+To move the Client from gut-feel decision-making to data-driven commercial execution, we constructed a unified 20-domain operational data infrastructure. 
 
 Rather than deploying isolated tools for sales, inventory, and delivery, this relational workbook framework connects every point-of-sale interaction back to underlying logistics, product SKUs, and sales rep performance metrics.
 
@@ -22,13 +22,13 @@ Rather than deploying isolated tools for sales, inventory, and delivery, this re
 ┌───────────────────────────────────────────────────────────────────────────────────────────┐
 │                                 FIELD EXECUTION TRACKING                                  │
 │  • Sales Visits Log       • Route Schedules              • Time Tracking & Duration       │
-│  • Pitch Outcome Log      • Product Price Matrix          • Credit Terms & Approvals       │
+│  • Pitch Outcome Log      • Product Price Matrix          • Credit Terms & Approvals      │
 └─────────────────────────────────────────────┬─────────────────────────────────────────────┘
                                               │
                                               ▼
 ┌───────────────────────────────────────────────────────────────────────────────────────────┐
 │                                FULFILLMENT & FINANCIALS                                   │
-│  • Orders Master          • Delivery Logs                • Cold-Chain Temperature Logs   │
+│  • Orders Master          • Delivery Logs                • Cold-Chain Temperature Logs    │
 │  • Order Line Items       • Inventory & Stock Ledger     • Returns & Spoilage Ledger      │
 │  • Rep Performance        • Customer Feedback Register                                    │
 └───────────────────────────────────────────────────────────────────────────────────────────┘

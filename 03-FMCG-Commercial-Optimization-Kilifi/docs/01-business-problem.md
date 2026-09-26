@@ -1,4 +1,3 @@
-Markdown
 # Chapter 01: The Business Problem — Expansion Without Visibility
 
 > **Executive Takeaway:** The fundamental challenge in Kilifi was not simply low sales volume, but an opaque operating environment where field execution was unmapped and commercial decisions relied on intuition rather than data.

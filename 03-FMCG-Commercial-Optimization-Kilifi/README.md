@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-When Meru Fresh Dairy Ltd. expanded its yogurt line into Kilifi County, field operations faced severe structural opacity. A team of 5 sales representatives and 2 vehicles operated without defined territory boundaries, pitching products via paper brochures to arbitrary retail outlets based on gut feel.
+When the client. expanded its yogurt line into Kilifi County, field operations faced severe structural opacity. A team of 5 sales representatives and 2 vehicles operated without defined territory boundaries, pitching products via paper brochures to arbitrary retail outlets based on gut feel.
 
 This case study documents the transformation of an unstructured, opaque market expansion into a measurable, evidence-based commercial growth engine. By deploying a 20-domain operational data capture system, we audited 6,591 sales visits, isolated core commercial drivers, designed a custom $2^2$ factorial DOE in JMP, and established candidate operating settings optimized for both transaction scale and conversion probability.
 

@@ -67,14 +67,14 @@ Without an operational data capture system, management could not isolate the roo
 │  • Sales Reps choose routes randomly                                                      │
 │  • Arbitrary pitch durations (5 mins to 45 mins)                                          │
 │  • Paper brochure pitches with informal price negotiation                                 │
-│  • Zero structured data capture at point of sale                                           │
+│  • Zero structured data capture at point of sale                                          │
 └───────────────────────────────────────────────────────────────────────────────────────────┘
                                              │
                                              ▼
                                   EXECUTIVE OPACITY GAP
 ┌───────────────────────────────────────────────────────────────────────────────────────────┐
 │  • Management cannot measure pitch conversion                                             │
-│  • Cannot distinguish account size vs. channel format performance                        │
+│  • Cannot distinguish account size vs. channel format performance                         │
 │  • Cannot evaluate route profitability or cold-chain delivery performance                 │
 └───────────────────────────────────────────────────────────────────────────────────────────┘
 Figure 1: Conceptual mapping of initial field sales execution in Kilifi, illustrating the lack of feedback loops between field execution and management strategy.

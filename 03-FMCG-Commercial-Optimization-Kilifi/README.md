@@ -1,6 +1,6 @@
 # FMCG Commercial Optimization & Experimental Design: Kilifi Market Expansion
 
-**Client:** Meru Fresh Dairy Ltd.  
+**Client:** A major dairy business, expanding to the Kilifi (Coast) market after establishing operations in Meru Kenya.  
 **Domain:** FMCG / Commercial Operations / Field Sales Analytics  
 **Methodology:** Operational Standardization, Exploratory Data Analysis, Multivariate Driver Screening, Custom $2^2$ Factorial Design of Experiments (DOE), Multi-Response Prediction Profiler Optimization  
 **Tooling:** JMP, Python, Operational Data Architecture  

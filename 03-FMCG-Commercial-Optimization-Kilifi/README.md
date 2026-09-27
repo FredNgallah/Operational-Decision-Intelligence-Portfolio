@@ -110,7 +110,7 @@ To avoid forcing every plausible variable into an experimental model, we conduct
                            FACTOR SCREENING & FILTERING PIPELINE
   CANDIDATE VARIABLES           SCREENING METHODOLOGY                DECISION & ROLE
  ┌──────────────────────┐      ┌──────────────────────┐      ┌──────────────────────────────┐
- │ • Sales Rep Experience│ ──►  │ ANOVA & Logistic GLM │ ──►  │ ✖ DROPPED (Low explanatory)  │
+ │ • SalesRep Experience│ ──►  │ ANOVA & Logistic GLM │ ──►  │ ✖ DROPPED (Low explanatory)  │
  │ • Delivery Vehicle   │      │ OLS Regression       │      │ ✖ DROPPED (No excursion link)│
  │ • Spoilage Temp      │      │ Variance Analysis    │      │ ✖ DROPPED (Inconclusive model│
  │ • Shop Type          │      │ Interaction Screening│      │ ✔ RETAINED (Context Factor)  │

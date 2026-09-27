@@ -68,11 +68,13 @@ INTERACTION PROFILE: REVENUE PER VISIT (KES)
   KES 1,500 ┴──────────────────────/────────────────────────
                           15 Minutes                    35 Minutes
                                       VISIT DURATION
-4. Conversion Probability Response (Order_conversion)Nominal Logistic Regression was fitted to evaluate whether offering credit or extending visit duration negatively impacted closing rates:
+4. Conversion Probability Response (Order_conversion)Nominal Logistic Regression was fitted to evaluate
+whether offering credit or extending visit duration negatively impacted closing rates:
 FactorOdds Ratio95% Confidence IntervalChi-Square (χ2)p-Value (p)credit_terms[7 Days]1.84$[1.18, 2.87]$7.14$0.0075$visit_duration_min[35]2.12$[1.35, 3.32]$10.45$0.0012$
 
-Key Finding: Neither factor reduced conversion rates. In fact, offering 7-Day Credit increased the odds of closing an order by $84\%$ ($\text{Odds Ratio} = 1.84$), as store owners were significantly more willing to place initial yogurt orders when immediate cash outlay was not
-required.
+Key Finding: Neither factor reduced conversion rates. In fact, offering 7-Day Credit increased the odds of closing an order by $84\%$ ($\text{Odds Ratio} = 1.84$), as store owners were significantly more willing to place initial yogurt orders when
+immediate cash outlay was not required.
 
 5. Strategic Implication & Next Steps
-The regression models demonstrate that both controllable levers drive positive commercial returns, with no adverse impact on closing probability.
+The regression models demonstrate that both controllable levers drive positive commercial returns,
+with no adverse impact on closing probability.

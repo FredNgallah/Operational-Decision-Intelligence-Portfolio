@@ -22,7 +22,7 @@ The primary objective of the experiment was to measure main effects and two-fact
 ┌───────────────────────────────────────────────────────────────────────────────────────────┐
 │                                  BLOCKING & CONTEXT FACTORS                               │
 │  • Block 1: Shop Type (Kiosk, Mini-Mart, Duka, Supermarket, Wholesaler, Hotel/Resort)     │
-│  • Block 2: Size Tier (Large, Medium, Small)                                             │
+│  • Block 2: Size Tier (Large, Medium, Small)                                              │
 └─────────────────────────────────────────────┬─────────────────────────────────────────────┘
                                               │
                                               ▼

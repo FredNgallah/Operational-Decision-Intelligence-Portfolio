@@ -1,8 +1,7 @@
 # Chapter 07: DOE Experimental Results & Regression Modeling
 
-> **Executive Takeaway:** Fitting Least Squares and Logistic Regression models on the custom $N=32$ DOE dataset reveals that both 7-Day Credit
-> and 35-Minute Pitch Durations generate positive revenue lifts. While main effects are strong, their combined interaction shows that credit acts as
->  a major catalyst when paired with sufficient pitch time.
+> **Executive Takeaway:** Fitting Least Squares and Logistic Regression models on the custom $N=32$ DOE dataset reveals that both
+>  7-Day Credit and 35-Minute Pitch Durations generate positive revenue lifts. While main effects are strong, their combined interaction shows that credit acts as a major catalyst when paired with sufficient pitch time.
 
 ---
 
@@ -17,8 +16,8 @@ validation.*
 
 ### Model Fit Metrics (`revenue_per_visit`)
 
-$$\text{revenue\_per\_visit} = \beta_0 + \beta_1(\text{credit\_terms}) + \beta_2(\text{visit\_duration\_min}) + \beta_{12}(\text{credit\_terms}
-\times \text{visit\_duration\_min}) + \text{Blocks} + \varepsilon$$
+$$\text{revenue\_per\_visit} = \beta_0 + \beta_1(\text{credit\_terms}) + \beta_2(\text{visit\_duration\_min}) + 
+\beta_{12}(\text{credit\_terms}\times \text{visit\_duration\_min}) + \text{Blocks} + \varepsilon$$
 
 | Metric | Model Value | Statistical Interpretation |
 | :--- | :---: | :--- |
@@ -50,11 +49,14 @@ The Least Squares parameter estimates isolate the main effects and two-factor in
 │ credit_terms [7 Days vs. Cash]   ██████████████████ (+KES 1,204.05, p=0.0047)             │
 │ credit_terms * duration          █████████ (+KES 645.80, p=0.1042)                        │
 └───────────────────────────────────────────────────────────────────────────────────────────┘
-Figure 8: Parameter estimate effect sizes showing main effects and interaction lifts for Credit Terms and Visit Duration.3. Interaction Analysis:
- Credit Terms $\times$ Visit DurationThe interaction plot reveals a critical operational dynamic between pitch duration and credit terms:
-Short Pitch (15 Minutes): Offering 7-Day Credit provides only a minor revenue lift ($+\text{KES } 558.25$) when sales pitches are rushed.
-Extended Pitch (35 Minutes): Offering 7-Day Credit during a structured 35-minute pitch unlocks a substantial combined revenue lift ($+\text{KES }
- 2,495.65$).Operational Interpretation: Credit terms require adequate pitch time for sales reps to explain repayment terms, verify store
+Figure 8: Parameter estimate effect sizes showing main effects and interaction lifts for Credit Terms and Visit Duration
+
+## 3.Interaction Analysis: Credit Terms $\times$ Visit Duration
+The interaction plot reveals a critical operational dynamic between pitch duration and credit terms:
+1. Short Pitch (15 Minutes): Offering 7-Day Credit provides only a minor revenue lift ($+\text{KES } 558.25$) when sales pitches are rushed.
+2. Extended Pitch (35 Minutes): Offering 7-Day Credit during a structured 35-minute pitch unlocks a substantial combined revenue lift ($+\text{KES }
+ 2,495.65$).
+3. Operational Interpretation: Credit terms require adequate pitch time for sales reps to explain repayment terms, verify store
 eligibility, and build sufficient retailer trust to expand order sizes.Plaintext
 
  INTERACTION PROFILE: REVENUE PER VISIT (KES)
@@ -67,12 +69,17 @@ eligibility, and build sufficient retailer trust to expand order sizes.Plaintext
   KES 1,500 ┴──────────────────────/────────────────────────
                           15 Minutes                    35 Minutes
                                       VISIT DURATION
-4. Conversion Probability Response (Order_conversion)Nominal Logistic Regression was fitted to evaluate whether offering credit or extending
+## 4. Conversion Probability Response (Order_conversion)
+Nominal Logistic Regression was fitted to evaluate whether offering credit or extending
 visit duration negatively impacted closing rates:
+
 FactorOdds Ratio95% Confidence IntervalChi-Square (χ2)p-Value (p)credit_terms[7 Days]1.84$[1.18, 2.87]$7.14$0.0075$visit_duration_min[35]2.12$
-[1.35, 3.32]$10.45$0.0012$Key Finding: Neither factor reduced conversion rates.
-In fact, offering 7-Day Credit increased the odds of closing an order by $84\%$ ($\text{Odds Ratio} = 1.84$),
- as store owners were significantly more willing to place initial yogurt orders when immediate cash outlay was not required.5.
-Strategic Implication & Next StepsThe regression models demonstrate that both controllable levers drive positive commercial returns,
+[1.35, 3.32]$10.45$0.0012$
+
+Key Finding: Neither factor reduced conversion rates.
+In fact, offering 7-Day Credit increased the odds of closing an order by $84\%$ ($\text{Odds Ratio} = 1.84$), as store owners were significantly more willing to place initial yogurt orders when immediate cash outlay was not required.
+
+## 5. Strategic Implication & Next Steps
+The regression models demonstrate that both controllable levers drive positive commercial returns,
 with no adverse impact on closing probability.We now proceed to Chapter 08 to run JMP's Multi-Response Prediction Profiler,
 finding the precise joint candidate operating conditions that maximize revenue while maintaining strict credit risk controls for The Client.

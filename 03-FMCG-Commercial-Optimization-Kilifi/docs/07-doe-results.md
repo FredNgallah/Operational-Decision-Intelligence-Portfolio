@@ -51,7 +51,9 @@ The Least Squares parameter estimates isolate the main effects and two-factor in
 └───────────────────────────────────────────────────────────────────────────────────────────┘
 Figure 8: Parameter estimate effect sizes showing main effects and interaction lifts for Credit Terms and Visit Duration
 
-3. Interaction Analysis: Credit Terms $\times$ Visit DurationThe interaction plot reveals a critical operational dynamic between pitch duration and credit terms:Short Pitch (15 Minutes): Offering 7-Day Credit provides only a minor revenue lift ($+\text{KES } 558.25$) when sales pitches are rushed.Extended Pitch (35 Minutes): Offering 7-Day Credit during a structured 35-minute pitch unlocks a substantial combined revenue lift ($+\text{KES } 2,495.65$).Operational Interpretation: Credit terms require adequate pitch time for sales reps to explain repayment terms, verify store eligibility, and build sufficient retailer trust to expand order sizes.Plaintext                         INTERACTION PROFILE: REVENUE PER VISIT (KES)
+3. Interaction Analysis: Credit Terms $\times$ Visit DurationThe interaction plot reveals a critical operational dynamic between pitch duration and credit terms:Short Pitch (15 Minutes): Offering 7-Day Credit provides only a minor revenue lift ($+\text{KES } 558.25$) when sales pitches are rushed.Extended Pitch (35 Minutes): Offering 7-Day Credit during a structured 35-minute pitch unlocks a substantial combined revenue lift ($+\text{KES } 2,495.65$).Operational Interpretation: Credit terms require adequate pitch time for sales reps to explain repayment terms, verify store eligibility, and build sufficient retailer trust to expand order sizes.Plaintext
+
+INTERACTION PROFILE: REVENUE PER VISIT (KES)
   KES 6,000 ┬─────────────────────────────────────────────────────────── (7 Days Credit)
             │                                                      /
   KES 4,500 ┼─────────────────────────────────────────────────────/───── (Cash)

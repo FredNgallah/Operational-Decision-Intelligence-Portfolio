@@ -1,0 +1,22 @@
+// Meru Fresh Dairy Ltd. - Kilifi Commercial Optimization
+// Script 01: Custom 2x2 Experimental Design Matrix Generation (JMP JSL)
+
+DOE(
+	Custom Design,
+	{Add Factor( Categorical, {"Cash", "7 Days"}, "credit_terms", 0 ),
+	Add Factor( Categorical, {"15 Mins", "35 Mins"}, "visit_duration_level", 0 ),
+	Add Factor( Categorical, {"Kiosk", "Duka", "Mini-Mart", "Supermarket", "Wholesaler", "Hotel/Resort"}, "shop_type", 0 ),
+	Add Factor( Categorical, {"Large", "Medium", "Small"}, "size_tier", 0 ),
+	Add Response( Maximize, "revenue_per_visit", ., ., . ),
+	Add Response( Maximize, "Order_conversion", ., ., . ),
+	Set Random Seed( 42 ),
+	Number of Starts( 100 ),
+	Add Term( {1, 1} ),
+	Add Term( {2, 1} ),
+	Add Term( {1, 1}, {2, 1} ),
+	Add Term( {3, 1} ),
+	Add Term( {4, 1} ),
+	Set Sample Size( 32 ),
+	Simulate Responses( 0 ),
+	Save Script to Data Table}
+);
